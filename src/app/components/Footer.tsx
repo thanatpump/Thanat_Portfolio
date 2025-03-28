@@ -1,9 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-
-
-export default function Footer() {
+const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4">
@@ -109,4 +107,6 @@ export default function Footer() {
       </div>
     </footer>
   );
-} 
+}
+
+export default Footer; 

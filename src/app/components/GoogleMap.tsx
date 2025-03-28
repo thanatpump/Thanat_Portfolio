@@ -4,10 +4,10 @@ import type { Libraries } from '@react-google-maps/api';
 
 const GoogleMapComponent = () => {
   const [libraries] = useState<Libraries>(['places']);
-  const [location] = useState({
+  const location = {
     lat: 16.4419355,
     lng: 102.8359811
-  });
+  };
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
