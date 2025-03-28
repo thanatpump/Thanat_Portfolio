@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import GoogleMapComponent from './components/GoogleMap';
+import Image from 'next/image';
 
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -38,7 +39,7 @@ export default function Home() {
               transition={{ duration: 1, delay: 0.6 }}
               className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white/90"
             >
-              I am a hardworking and motivated Developer / Programmer with experience and skills. I am always open to learning new things, and I am a fast learner.
+              I&apos;m a hardworking and motivated Developer / Programmer with experience and skills. I&apos;m always open to learning new things, and I&apos;m a fast learner.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -97,9 +98,11 @@ export default function Home() {
                 className="w-full md:w-1/2 flex items-center justify-center"
               >
                 <div className="relative w-[300px] h-[400px] rounded-lg overflow-hidden shadow-xl">
-                  <img
+                  <Image
                     src="/images/profile.jpg"
                     alt="Profile"
+                    width={300}
+                    height={400}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -428,9 +431,11 @@ export default function Home() {
                 onClick={() => setSelectedImage("/images/advanced-ios-cert.png")}
               >
                 <div className="relative h-64 bg-gray-50">
-                  <img
+                  <Image
                     src="/images/advanced-ios-cert.png"
                     alt="Advanced iOS Development Certificate"
+                    width={300}
+                    height={400}
                     className="w-full h-full object-contain p-4"
                   />
                   <div className="absolute inset-0 hover:opacity-0 transition-opacity">
@@ -462,9 +467,11 @@ export default function Home() {
                 onClick={() => setSelectedImage("/images/basic-ios-cert.png")}
               >
                 <div className="relative h-64 bg-gray-50">
-                  <img
+                  <Image
                     src="/images/basic-ios-cert.png"
                     alt="Basic iOS Development Certificate"
+                    width={300}
+                    height={400}
                     className="w-full h-full object-contain p-4"
                   />
                   <div className="absolute inset-0 hover:opacity-0 transition-opacity">
@@ -559,9 +566,11 @@ export default function Home() {
               className="relative max-w-4xl w-full max-h-[90vh]"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <Image
                 src={selectedImage}
                 alt="Certificate"
+                width={1200}
+                height={800}
                 className="w-full h-full object-contain"
               />
               <button

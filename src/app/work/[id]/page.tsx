@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
+import Image from 'next/image';
 
 // ข้อมูลผลงานของแต่ละที่ทำงาน
 const workDetails = {
@@ -144,9 +145,11 @@ export default function WorkDetail({ params }: { params: Promise<{ id: string }>
                     setIsOpen(true);
                   }}
                 >
-                  <img
+                  <Image
                     src={image}
-                    alt={`Work ${index + 1}`}
+                    alt={`Project image ${index + 1}`}
+                    width={800}
+                    height={600}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">

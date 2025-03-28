@@ -1,15 +1,17 @@
 import { useLoadScript, GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import { useState } from 'react';
+import type { Libraries } from '@react-google-maps/api';
 
-export default function GoogleMapComponent() {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
-    libraries: ['places']
+const GoogleMapComponent = () => {
+  const [libraries] = useState<Libraries>(['places']);
+  const [location] = useState({
+    lat: 16.4419355,
+    lng: 102.8359811
   });
 
-  const [location, setLocation] = useState({
-    lat: 16.43524073168138,  // พิกัด The Base Condo
-    lng: 102.82653473812593
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
+    libraries
   });
 
   const [showInfo, setShowInfo] = useState(false);
@@ -37,7 +39,6 @@ export default function GoogleMapComponent() {
       >
         <Marker
           position={location}
-          animation={google.maps.Animation.DROP}
           onClick={() => setShowInfo(true)}
         />
         {showInfo && (
@@ -56,4 +57,6 @@ export default function GoogleMapComponent() {
       </GoogleMap>
     </div>
   );
-} 
+}
+
+export default GoogleMapComponent; 
