@@ -83,7 +83,7 @@ export default function Home() {
                   </p>
                   <p className="text-lg leading-relaxed">
                     I enjoy tackling complex problems and turning them into simple and beautiful solutions.
-                    When I'm not coding, you can find me exploring new technologies or working on personal projects.
+                    When I&apos;m not coding, you can find me exploring new technologies or working on personal projects.
                   </p>
                 </div>
               </motion.div>

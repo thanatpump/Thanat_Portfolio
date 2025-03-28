@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { FaLinkedin, FaGithub } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
+
+
 
 export default function Footer() {
   return (

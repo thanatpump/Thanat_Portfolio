@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { use } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
