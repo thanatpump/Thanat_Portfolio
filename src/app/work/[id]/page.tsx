@@ -4,9 +4,19 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const workDetails = {
+interface WorkDetail {
+  title: string;
+  role: string;
+  period: string;
+  description: string;
+  technologies: Record<string, string[]>;
+  responsibilities: string[];
+  images?: string[];
+}
+
+const workDetails: Record<string, WorkDetail> = {
   'chaiyaphum-hospital': {
     title: 'Chaiyaphum Hospital',
     role: 'Full-Stack Developer',
@@ -14,7 +24,7 @@ const workDetails = {
     description: 'Design and Development of MySQL Database and Web Application for Health Insurance Department',
     technologies: {
       'Programming Languages': ['Laravel', 'PHP', 'MySQL', 'HTML', 'CSS', 'JavaScript'],
-      'Software': ['Visual Studio', 'Navicat']
+      'Software': ['Visual Studio', 'Navicat','aaPanel']
     },
     responsibilities: [
       'Designed and implemented a system to manage the registration of foreign nationals for health insurance, including functionalities for adding, deleting, and editing records.',
@@ -47,17 +57,16 @@ const workDetails = {
     period: 'May 2023 - Sep 2023',
     description: 'Design and Develop game for web application to project&apos;s requirement',
     technologies: {
-      'Programming Languages': ['GDScript', 'Lua'],
+      'Programming Languages': ['GDScript'],
       'Game Engines': ['Godot'],
-      'Software': ['Visual Studio', 'Docker', 'Postman']
+      'Software': ['Visual Studio','Github', 'Postman']
     },
     responsibilities: [
       'Assisted in the development of game prototypes and proof-of-concepts',
       'Participated in code reviews, identifying and resolving issues to improve code quality.',
       'Collaborated with senior developers in designing and implementing game mechanics.',
       'Conducted testing and debugging to identify and fix software defects.'
-    ],
-    images: ['/images/work/soft-kingdom1.jpg', '/images/work/soft-kingdom2.jpg']
+    ]
   },
   'one-game': {
     title: 'ONE Game',
@@ -73,8 +82,7 @@ const workDetails = {
       'Assisted in the development of game prototypes and proof-of-concepts',
       'Participated in code reviews, identifying and resolving issues to improve code quality.',
       'Conducted testing and debugging to identify and fix software defects.'
-    ],
-    images: ['/images/work/one-game1.jpg', '/images/work/one-game2.jpg']
+    ]
   }
 };
 
@@ -83,6 +91,17 @@ export default function WorkDetail() {
   const work = workDetails[id as keyof typeof workDetails];
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
+
+  // Add auto-sliding effect
+  useEffect(() => {
+    if (!work.images || work.images.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setPhotoIndex((prev) => (prev < (work.images as string[]).length - 1 ? prev + 1 : 0));
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [work.images]);
 
   if (!work) {
     return <div>Work not found</div>;
@@ -138,45 +157,76 @@ export default function WorkDetail() {
             </section>
 
             {/* Project Images */}
-            <section>
-              <h2 className="text-2xl font-bold mb-4 text-gray-800">Project Images</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {work.images.map((image, index) => (
-                  <div 
-                    key={index}
-                    className="relative group cursor-pointer overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
-                    onClick={() => {
-                      setPhotoIndex(index);
-                      setIsLightboxOpen(true);
-                    }}
-                  >
-                    <Image
-                      src={image}
-                      alt={`${work.title} image ${index + 1}`}
-                      width={800}
-                      height={600}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                      <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        Click to view
-                      </span>
-                    </div>
+            {work.images && work.images.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-bold mb-4 text-gray-800">Project Images</h2>
+                <div 
+                  className="relative w-full h-[400px] rounded-lg overflow-hidden shadow-lg cursor-pointer"
+                  onClick={() => setIsLightboxOpen(true)}
+                >
+                  <Image
+                    src={work.images[photoIndex]}
+                    alt={`${work.title} image ${photoIndex + 1}`}
+                    fill
+                    className="object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-between px-4">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPhotoIndex((prev) => (prev > 0 ? prev - 1 : (work.images as string[]).length - 1));
+                      }}
+                      className="text-white hover:text-blue-300 transition-colors"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPhotoIndex((prev) => (prev < (work.images as string[]).length - 1 ? prev + 1 : 0));
+                      }}
+                      className="text-white hover:text-blue-300 transition-colors"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
                   </div>
-                ))}
-              </div>
-            </section>
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    {(work.images as string[]).map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setPhotoIndex(index);
+                        }}
+                        className={`w-2 h-2 rounded-full transition-colors ${
+                          index === photoIndex ? 'bg-white' : 'bg-white/50'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
+                    Click to view full size
+                  </div>
+                </div>
+              </section>
+            )}
           </div>
         </div>
       </div>
 
       {/* Lightbox for full-size image viewing */}
-      <Lightbox
-        open={isLightboxOpen}
-        close={() => setIsLightboxOpen(false)}
-        slides={work.images.map(src => ({ src }))}
-        index={photoIndex}
-      />
+      {work.images && work.images.length > 0 && (
+        <Lightbox
+          open={isLightboxOpen}
+          close={() => setIsLightboxOpen(false)}
+          slides={work.images.map((src: string) => ({ src }))}
+          index={photoIndex}
+        />
+      )}
     </div>
   );
 } 
