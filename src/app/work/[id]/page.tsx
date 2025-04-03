@@ -57,9 +57,9 @@ const workDetails: Record<string, WorkDetail> = {
     period: 'May 2023 - Sep 2023',
     description: 'Design and Develop game for web application to project&apos;s requirement',
     technologies: {
-      'Programming Languages': ['GDScript'],
-      'Game Engines': ['Godot'],
-      'Software': ['Visual Studio','Github', 'Postman']
+      'Programming Languages': ['C#'],
+      'Game Engines': ['Unity'],
+      'Software': ['Visual Studio','Github', 'Trello']
     },
     responsibilities: [
       'Assisted in the development of game prototypes and proof-of-concepts',
