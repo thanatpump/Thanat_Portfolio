@@ -428,7 +428,7 @@ export default function Home() {
                       <div className="mt-6 space-y-2">
                         <div className="flex items-center text-gray-600">
                           <span className="mr-2">🏆</span>
-                          <span>Major in Software Engineering</span>
+                          <span>Major in Information Technology</span>
                         </div>
                         <div className="flex items-center text-gray-600">
                           <span className="mr-2">📚</span>
