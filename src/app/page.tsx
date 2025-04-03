@@ -540,7 +540,7 @@ export default function Home() {
                 className="space-y-6"
               >
                 <div>
-                  <h3 className="text-2xl font-bold mb-4">ติดต่อ</h3>
+                  <h3 className="text-2xl font-bold mb-4">Contact</h3>
                   <div className="space-y-4">
                     <p className="flex items-center">
                       <span className="text-blue-500 mr-2">📞</span>
