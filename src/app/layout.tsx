@@ -6,13 +6,13 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: " Portfolio | Thanat ",
-  description: "Portfolio website of Thanat Thincheelong, an iOS Developer specializing in Swift and iOS development.",
-  keywords: "iOS Developer, Swift, Mobile Development, Portfolio",
+  description: "Portfolio website of Thanat Thincheelong",
+  keywords: "Portfolio",
   authors: [{ name: "Thanat Thincheelong" }],
   creator: "Thanat Thincheelong",
   openGraph: {
-    title: "Thanat Thincheelong | iOS Developer",
-    description: "Portfolio website of Thanat Thincheelong, an iOS Developer specializing in Swift and iOS development.",
+    title: "Thanat Thincheelong | Developer",
+    description: "Portfolio website of Thanat Thincheelong.",
     type: "website",
     locale: "th_TH",
   },

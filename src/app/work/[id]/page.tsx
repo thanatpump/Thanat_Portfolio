@@ -1,223 +1,182 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { use } from 'react';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { useState } from 'react';
+import { useParams } from 'next/navigation';
+import Image from 'next/image';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
-import Image from 'next/image';
+import { useState } from 'react';
 
-// ข้อมูลผลงานของแต่ละที่ทำงาน
 const workDetails = {
   'chaiyaphum-hospital': {
     title: 'Chaiyaphum Hospital',
-    period: '2025 Feb - Present',
-    role: 'Full Stack Developer',
-    description: 'I gathered data from the Health Insurance Department and designed a MySQL database to streamline data access and management. I also developed a web application using Laravel, ensuring a user-friendly interface and efficient data processing for improved workflow.',
-    images: [
-      '/images/work/hospital-1.png',
-      '/images/work/hospital-2.png',
-      '/images/work/hospital-3.png'
+    role: 'Full-Stack Developer',
+    period: 'Feb 2025 - Present',
+    description: 'Design and Development of MySQL Database and Web Application for Health Insurance Department',
+    technologies: {
+      'Programming Languages': ['Laravel', 'PHP', 'MySQL', 'HTML', 'CSS', 'JavaScript'],
+      'Software': ['Visual Studio', 'Navicat']
+    },
+    responsibilities: [
+      'Designed and implemented a system to manage the registration of foreign nationals for health insurance, including functionalities for adding, deleting, and editing records.',
+      'Designed and implemented a real-time dashboard to visualize and track data updates in real-time.',
+      'Developed a feature to allow data export to Excel format for improved data management and accessibility.',
+      'Developed a document registration system for patient records in the Health Insurance Department, with functionality to upload and manage documents'
     ],
-    technologies: ['Laravel', 'PHP', 'MySQL', 'HTML' , 'CSS' , 'JavaScript'],
-    achievements: [
-      'Developed a database management system',
-      'Built a health insurance registration system for foreign nationals',
-      'Improved system performance and efficiency'
-    ]
+    images: ['/images/work/hospital-1.png', '/images/work/hospital-2.png', '/images/work/hospital-3.png']
   },
   'dkcode': {
-    title: 'DKCode Co, Ltd',
-    period: '2024 Nov - 2025 Feb',
+    title: 'DKcode Co., Ltd',
     role: 'Programmer',
-    description: 'I worked as a low-code programmer in a work-from-home setup, focusing on internal systems for hospitals, including electronic medical records (EMR), appointment booking systems, and visit management systems.',
-    images: [
-      '/images/work/dkcode-1.png',
-      '/images/work/dkcode-2.png',
-      '/images/work/dkcode-3.png'
+    period: 'Nov 2024 - Feb 2025',
+    description: 'Designing Systems and Troubleshooting Issues Identified by Testers',
+    technologies: {
+      'Programming Languages': ['MySQL', 'JavaScript'],
+      'Platforms': ['Low-code']
+    },
+    responsibilities: [
+      'Designed and implemented a patient screening module for new visit appointments.',
+      'Developed a blood allergy screening interface to capture and monitor patient blood type reactions.',
+      'Created a form interface to record and track post-blood transfusion symptoms.',
+      'Collaborated with senior developers to resolve issues identified by testers.'
     ],
-    technologies: ['Low-code', 'MySQL', 'JavaScript' ],
-    achievements: [
-      'Developed a Registration System ',
-      'Developed a Patient Screening System',
-      'Developed a Visit Scheduling System'
-    ]
+    images: ['/images/work/dkcode-1.png', '/images/work/dkcode-2.png', '/images/work/dkcode-3.png']
   },
   'soft-kingdom': {
-    title: 'Soft Kingdom Co, Ltd',
-    period: '2023 May - 2023 Sep',
+    title: 'Soft Kingdom Co., Ltd',
     role: 'Game Developer',
-    description: 'Developed games for multiple platforms to enhance user engagement and expand reach.',
-    images: [
-      // '/images/work/soft-kingdom-1.jpg',
-      // '/images/work/soft-kingdom-2.jpg',
-      // '/images/work/soft-kingdom-3.jpg'
+    period: 'May 2023 - Sep 2023',
+    description: 'Design and Develop game for web application to project&apos;s requirement',
+    technologies: {
+      'Programming Languages': ['GDScript', 'Lua'],
+      'Game Engines': ['Godot'],
+      'Software': ['Visual Studio', 'Docker', 'Postman']
+    },
+    responsibilities: [
+      'Assisted in the development of game prototypes and proof-of-concepts',
+      'Participated in code reviews, identifying and resolving issues to improve code quality.',
+      'Collaborated with senior developers in designing and implementing game mechanics.',
+      'Conducted testing and debugging to identify and fix software defects.'
     ],
-    technologies: ['Unity', 'C#', 'Game Design'],
-    achievements: [
-      'Developed games for PC platforms.',
-      'Created AI systems for NPCs.',
-      'Designed and developed gameplay mechanics.'
-    ]
+    images: ['/images/work/soft-kingdom1.jpg', '/images/work/soft-kingdom2.jpg']
   },
   'one-game': {
     title: 'ONE Game',
-    period: '2021 Dec - 2023 Mar',
     role: 'Game Developer',
-    description: 'Developed mobile games to enhance user experience and engagement.',
-    images: [
-      // '/images/work/one-game-1.jpg',
-      // '/images/work/one-game-2.jpg',
-      // '/images/work/one-game-3.jpg'
+    period: 'Dec 2021 - Mar 2023',
+    description: 'Design and Develop game for web application to project&apos;s requirement',
+    technologies: {
+      'Programming Languages': ['GDScript', 'C#'],
+      'Game Engines': ['Godot', 'Unity'],
+      'Software': ['Visual Studio', 'Github']
+    },
+    responsibilities: [
+      'Assisted in the development of game prototypes and proof-of-concepts',
+      'Participated in code reviews, identifying and resolving issues to improve code quality.',
+      'Conducted testing and debugging to identify and fix software defects.'
     ],
-    technologies: ['Godot', 'GDScript', 'Mobile Game Development'],
-    achievements: [
-      'Developed games for mobile platforms.',
-      'Built multiplayer game systems.',
-      'Designed and developed UI/UX for mobile devices.'
-    ]
+    images: ['/images/work/one-game1.jpg', '/images/work/one-game2.jpg']
   }
 };
 
-export default function WorkDetail({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params);
-  const work = workDetails[resolvedParams.id as keyof typeof workDetails];
-  const [isOpen, setIsOpen] = useState(false);
+export default function WorkDetail() {
+  const { id } = useParams();
+  const work = workDetails[id as keyof typeof workDetails];
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
 
   if (!work) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1 className="text-2xl font-bold">Data not found</h1>
-      </div>
-    );
+    return <div>Work not found</div>;
   }
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    pauseOnHover: true,
-    arrows: true,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          arrows: false
-        }
-      }
-    ]
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 py-20">
+    <div className="min-h-screen bg-gray-50 py-12">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-4xl mx-auto"
-        >
-          {/* Main Info */}
-          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <h1 className="text-4xl font-bold mb-4">{work.title}</h1>
-            <p className="text-xl text-gray-600 mb-4">{work.period}</p>
-            <p className="text-lg text-blue-600 font-semibold">{work.role}</p>
-            <p className="text-gray-700 mt-4">{work.description}</p>
+        <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-white">
+            <h1 className="text-4xl font-bold mb-2">{work.title}</h1>
+            <p className="text-xl font-semibold mb-2">{work.role}</p>
+            <p className="text-lg opacity-90">{work.period}</p>
           </div>
 
-          {/* Image Carousel */}
-          <div className="mb-8">
-            <Slider {...settings} className="work-carousel">
-              {work.images.map((image, index) => (
-                <div 
-                  key={index} 
-                  className="relative h-[400px] rounded-lg overflow-hidden cursor-pointer"
-                  onClick={() => {
-                    setPhotoIndex(index);
-                    setIsOpen(true);
-                  }}
-                >
-                  <Image
-                    src={image}
-                    alt={`Project image ${index + 1}`}
-                    width={800}
-                    height={600}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                    <span className="text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
-                      Click to view full size
-                    </span>
+          {/* Content */}
+          <div className="p-8">
+            {/* Description */}
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold mb-4 text-gray-800">Project Overview</h2>
+              <p className="text-gray-600 text-lg">{work.description}</p>
+            </section>
+
+            {/* Technologies */}
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold mb-4 text-gray-800">Technologies Used</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {Object.entries(work.technologies).map(([category, items]) => (
+                  <div key={category} className="bg-gray-50 rounded-lg p-4">
+                    <h3 className="font-semibold text-gray-700 mb-2">{category}</h3>
+                    <ul className="list-disc list-inside space-y-1">
+                      {items.map((item, index) => (
+                        <li key={index} className="text-gray-600">{item}</li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
-              ))}
-            </Slider>
-          </div>
+                ))}
+              </div>
+            </section>
 
-          {/* Lightbox */}
-          <Lightbox
-            open={isOpen}
-            close={() => setIsOpen(false)}
-            index={photoIndex}
-            slides={work.images.map(src => ({ src }))}
-          />
+            {/* Responsibilities */}
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold mb-4 text-gray-800">Key Responsibilities</h2>
+              <ul className="space-y-3">
+                {work.responsibilities.map((responsibility, index) => (
+                  <li key={index} className="flex items-start">
+                    <span className="text-blue-500 mr-2">•</span>
+                    <span className="text-gray-600">{responsibility}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
 
-          {/* Technologies */}
-          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-4">Technologies Used</h2>
-            <div className="flex flex-wrap gap-2">
-              {work.technologies.map((tech, index) => (
-                <span
-                  key={index}
-                  className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
+            {/* Project Images */}
+            <section>
+              <h2 className="text-2xl font-bold mb-4 text-gray-800">Project Images</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {work.images.map((image, index) => (
+                  <div 
+                    key={index}
+                    className="relative group cursor-pointer overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
+                    onClick={() => {
+                      setPhotoIndex(index);
+                      setIsLightboxOpen(true);
+                    }}
+                  >
+                    <Image
+                      src={image}
+                      alt={`${work.title} image ${index + 1}`}
+                      width={800}
+                      height={600}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                      <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        Click to view
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
-
-          {/* Key Achievements */}
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-4">Key Achievements</h2>
-            <ul className="space-y-3">
-              {work.achievements.map((achievement, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  {achievement}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
+        </div>
       </div>
 
-      <style jsx global>{`
-        .work-carousel .slick-prev,
-        .work-carousel .slick-next {
-          z-index: 10;
-        }
-        .work-carousel .slick-prev {
-          left: 25px;
-        }
-        .work-carousel .slick-next {
-          right: 25px;
-        }
-        .work-carousel .slick-dots {
-          bottom: 20px;
-        }
-        .work-carousel .slick-dots li button:before {
-          color: white;
-        }
-      `}</style>
+      {/* Lightbox for full-size image viewing */}
+      <Lightbox
+        open={isLightboxOpen}
+        close={() => setIsLightboxOpen(false)}
+        slides={work.images.map(src => ({ src }))}
+        index={photoIndex}
+      />
     </div>
   );
 } 

@@ -186,7 +186,7 @@ export default function Home() {
                     <span className="text-green-500 mr-2">•</span>Database Design
                   </li>
                   <li className="flex items-center">
-                    <span className="text-green-500 mr-2">•</span>Server Management
+                    <span className="text-green-500 mr-2">•</span>aaPanel
                   </li>
                 </ul>
               </motion.div>
