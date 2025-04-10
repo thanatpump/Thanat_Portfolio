@@ -11,7 +11,9 @@ const GoogleMapComponent = () => {
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
-    libraries
+    libraries,
+    region: 'TH',
+    language: 'th'
   });
 
   const [showInfo, setShowInfo] = useState(false);
@@ -35,6 +37,13 @@ const GoogleMapComponent = () => {
           streetViewControl: true,
           mapTypeControl: true,
           fullscreenControl: true,
+          styles: [
+            {
+              featureType: "poi",
+              elementType: "labels",
+              stylers: [{ visibility: "off" }]
+            }
+          ]
         }}
       >
         <Marker
