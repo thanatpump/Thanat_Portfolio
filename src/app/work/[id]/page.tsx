@@ -247,7 +247,8 @@ export default function WorkDetail() {
                 {id === 'chaiyaphum-hospital' && work.images2 && work.images2.length > 0 && (
                   <div className="mt-12">
                     <h3 className="text-xl font-semibold mb-4 text-blue-600">Marathon Registration System</h3>
-                    <p className="text-gray-600 mb-4">Portfolio available at: <a href="https://cphrun.hsoft.in.th" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">https://cphrun.hsoft.in.th</a></p>
+                    <p className="text-gray-600 mb-4">This is a personal project that I designed and developed entirely on my own using Next.js. I gathered requirements directly from marathon organizers and built a full-featured registration system that supports multiple race types (Fun Run, Mini Marathon, Half Marathon, Full Marathon). The system includes a secure payment management module with real-time status tracking, an admin dashboard with interactive statistics, and a participant management panel. The UI/UX was crafted using Tailwind CSS and Framer Motion to ensure a clean and modern user experience.
+                      You can view the project at: <a href="https://cphrun.hsoft.in.th" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">https://cphrun.hsoft.in.th</a></p>
                     <div 
                       className="relative w-full h-[400px] rounded-lg overflow-hidden shadow-lg cursor-pointer"
                       onClick={() => {
