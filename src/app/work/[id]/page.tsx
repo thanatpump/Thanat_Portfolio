@@ -39,7 +39,7 @@ const workDetails: Record<string, WorkDetail> = {
       'Designed and developed a modern, user-friendly UI/UX using Tailwind CSS and Framer Motion'
     ],
     images: ['/images/work/hospital-1.png', '/images/work/hospital-2.png', '/images/work/hospital-3.png'],
-    images2: ['/images/work/hospital-4.png', '/images/work/hospital-5.png', '/images/work/hospital-6.png']
+    images2: ['/images/work/hospital-4.png', '/images/work/hospital-5.png', '/images/work/hospital-6.png', '/images/work/hospital-7.png', '/images/work/hospital-8.png', '/images/work/hospital-9.png', '/images/work/hospital-10.png', '/images/work/hospital-11.png']
   },
   'dkcode': {
     title: 'DKcode Co., Ltd',
